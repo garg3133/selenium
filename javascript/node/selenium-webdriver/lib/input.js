@@ -600,6 +600,10 @@ class Actions {
     /** @private @const */
     this.mouse_ = new Pointer('default mouse', Pointer.Type.MOUSE)
 
+    this.touchPointer_ = new Map([
+      ['default touch', new Pointer('default mouse', Pointer.Type.TOUCH)]
+    ])
+
     /** @private @const */
     this.wheel_ = new Wheel('default wheel')
 
@@ -625,6 +629,11 @@ class Actions {
   wheel() {
     return this.wheel_
   }
+
+  /** @return {!Wheel} the wheel device handle. */
+  // touch('finger 1') {
+  //   return this.wheel_
+  // }
 
   /**
    * @param {!Device} device
@@ -823,8 +832,8 @@ class Actions {
    * @param {!Button=} button The button to press; defaults to `LEFT`.
    * @return {!Actions} a self reference.
    */
-  press(button = Button.LEFT) {
-    return this.insert(this.mouse_, this.mouse_.press(button))
+  press(button = Button.LEFT, device = this.mouse_) {
+    return this.insert(device, this.mouse_.press(button))
   }
 
   /**
